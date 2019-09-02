@@ -1,0 +1,38 @@
+entity CadastroPf{ 
+     nome String,
+     cpf Interger,
+     rg Interger,
+     contato Interger,
+     email String
+}
+entity CadastroPj{
+	nomeFantasia String,
+    cnpj Interger,
+    contato Interger,
+    email String
+}
+enum TipoQuarto{
+CLIMATIZADOCASAL, CLIMATIZADOSOLTEIRO, VENTILADOCASAL, VENLADOSOLTEIRO
+}
+entity Hospedagem{
+	quarto TipoQuarto,
+	diaria Interger,
+	valor Float,
+	dataHospedagem Date,
+    entarada Date,
+    saida Date
+}
+enum TipoPagamento{
+	DINHEIRO, CARTAOCREDITO, CARTAODEBITO
+}
+entity Pagamento {
+	tipo TipoPagamento,
+    dataPagameneto Date
+}
+
+relationship ManyToOne {
+	HospedagemPf{cadastro} to CadastroPf{hospedagem},
+    HospedagemPj{cadastro} to CadastroPj{hospedagem},
+    Pagamento{cadastro} to CadastroPf{pagamento},
+    Pagamento{cadastro} to CadastroPf{pagamento}
+}
