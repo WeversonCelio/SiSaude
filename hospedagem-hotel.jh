@@ -1,38 +1,45 @@
-entity CadastroPf{ 
+entity CadastroPessoaFisica{ 
      nome String,
-     cpf Interger,
-     rg Interger,
-     contato Interger,
+     cpf Long,
+     contato Integer,
      email String
 }
-entity CadastroPj{
+entity CadastroPessoaJuridica{
 	nomeFantasia String,
-    cnpj Interger,
-    contato Interger,
+    cnpj Integer,
+    contato Integer,
     email String
+}
+
+entity CadastroQuarto{
+	quarto TipoQuarto,
+    preco Float
+  
+}
+
+entity Hospedagem{
+	diaria Integer,
+	dataHospedagem ZonedDateTime,
+    dataSaida ZonedDateTime
+}
+
+entity Pagamento {
+	tipo TipoPagamento,
+    valor Float,
+    dataPagameneto ZonedDateTime
 }
 enum TipoQuarto{
 CLIMATIZADOCASAL, CLIMATIZADOSOLTEIRO, VENTILADOCASAL, VENLADOSOLTEIRO
 }
-entity Hospedagem{
-	quarto TipoQuarto,
-	diaria Interger,
-	valor Float,
-	dataHospedagem Date,
-    entarada Date,
-    saida Date
-}
 enum TipoPagamento{
 	DINHEIRO, CARTAOCREDITO, CARTAODEBITO
 }
-entity Pagamento {
-	tipo TipoPagamento,
-    dataPagameneto Date
-}
 
 relationship ManyToOne {
-	Hospedagem{cadastros} to CadastroPf{hospedagens},
-    Hospedagem{cadastros} to CadastroPj{hospedagens},
-    Pagamento{cadastros} to CadastroPf{pagamentos},
-    Pagamento{cadastros} to CadastroPj{pagamentos}
-}
+	Hospedagem{cadastrosPessoaFisica} to CadastroPessoaFisica{hospedagenspf},
+    Hospedagem{cadastrosPessoaJuridica} to CadastroPessoaJuridica{hospedagenspj},
+    Hospedagem{cadastrosQuarto} to CadastroQuarto{hospedagens},
+    Hospedagem{pagamentos} to Pagamento{hospedagens}
+    
+    
+    }
